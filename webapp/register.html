@@ -1,0 +1,113 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<head>
+	<title>Merged Forms Page Responsive Widget Template :: W3layouts</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords"
+		content="Merged Forms Page Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<!-- //Meta tag Keywords -->
+	<link rel="stylesheet" href="css/register.css" type="text/css" media="all" /><!-- Style-CSS -->
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+	<script>
+		AWS.config.update({
+			region: "eu-west-1",
+			// accessKeyId default can be used while using the downloadable version of DynamoDB. 
+			// For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+			accessKeyId: "",
+			// secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+			// For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+			secretAccessKey: ""
+		});
+
+		var dynamodb = new AWS.DynamoDB();
+
+		function createMovies() {
+			var params = {
+				TableName: "Movies",
+				KeySchema: [
+					{ AttributeName: "year", KeyType: "HASH" },
+					{ AttributeName: "title", KeyType: "RANGE" }
+				],
+				AttributeDefinitions: [
+					{ AttributeName: "year", AttributeType: "N" },
+					{ AttributeName: "title", AttributeType: "S" }
+				],
+				ProvisionedThroughput: {
+					ReadCapacityUnits: 5,
+					WriteCapacityUnits: 5
+				}
+			};
+
+			dynamodb.createTable(params, function (err, data) {
+				if (err) {
+					document.getElementById('textarea').innerHTML = "Unable to create table: " + "\n" + JSON.stringify(err, undefined, 2);
+				} else {
+					document.getElementById('textarea').innerHTML = "Created table: " + "\n" + JSON.stringify(data, undefined, 2);
+				}
+			});
+		}
+	</script>
+
+</head>
+
+<body>
+	<!-- /form-26-section -->
+	<section class="form-26-1">
+		<div class="form-26-mian">
+			<div class="layer">
+				<div class="wrapper">
+					<div class="form-inner-cont">
+						<div class="forms-26-info">
+							<h2>Register</h2>
+							<p>Sign up now for free to receive your daily smart football predictions!
+								Don't just bet, bet smart.
+							</p>
+						</div>
+						<div class="form-right-inf">
+							<form action="#" method="post" class="signin-form">
+								<div class="forms-gds">
+									<div class="form-input">
+										<input type="text" name="firstname" id="fn" placeholder="Firstname" required />
+									</div>
+									<div class="form-input">
+										<input type="text" name="lastname" id="ln" placeholder="Lastname" required />
+									</div>
+									<div class="form-input">
+										<input type="email" name="email" id="em" placeholder="Email" required />
+									</div>
+									<div class="form-input">
+										<input type="email" name="email" id="cem" placeholder="Confirm Email"
+											required />
+									</div>
+									<div class="form-input"><button class="btn" onclick="createMovies();">Signup</button>
+									</div>
+								</div>
+								<h6 class="already">Already have an account? <a href="index.html"><span>Login
+											Here<span></span></span></a></h6>
+							</form>
+
+						</div>
+						<div class="copyright text-center">
+							<p>© 2019 BSG - All rights reserved
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- //form-26-section -->
+</body>
+
+</html>
